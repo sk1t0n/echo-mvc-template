@@ -1,0 +1,11 @@
+{
+  "devDependencies": {
+    "css-minify": "^2.1.0",
+    "uglifyjs-folder": "^3.3.0"
+  },
+  "scripts": {
+    "build_css": "css-minify -d ./assets/css -o ./web/css",
+    "build_js": "uglifyjs-folder ./assets/js -o ./web/js/index.min.js",
+    "build": "npm run build_css && npm run build_js"
+  }
+}
