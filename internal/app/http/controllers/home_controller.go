@@ -1,7 +1,10 @@
 package controllers
 
 import (
+	"net/http"
+
 	"github.com/labstack/echo/v4"
+	"github.com/open2b/scriggo/native"
 
 	"github.com/sk1t0n/echo-mvc-template/internal/templates"
 )
@@ -15,12 +18,15 @@ func NewHomeController() HomeController {
 
 func (HomeController) Index(c echo.Context) error {
 	w := c.Response().Writer
-	bindings := map[string]any{
-		"page": map[string]string{
-			"title": "Home page",
-		},
+	globals := native.Declarations{
+		"title": "Home page",
 	}
-	templates.LoadTemplate(w, "internal/templates/index.html", bindings)
+	vars := map[string]any{}
+
+	err := templates.RenderTemplate(w, "internal/templates/index.html", globals, vars)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusInternalServerError, "something unexpected happened")
+	}
 
 	return nil
 }

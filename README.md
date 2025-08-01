@@ -1,6 +1,6 @@
 # echo-mvc-template
 
-This is a project template for Echo MVC apps. Tech stack: [Echo](https://echo.labstack.com/), [Liquid](https://shopify.github.io/liquid).
+This is a project template for Echo MVC apps. Tech stack: [Echo](https://echo.labstack.com/), [Scriggo](https://github.com/open2b/scriggo).
 
 ## Install
 

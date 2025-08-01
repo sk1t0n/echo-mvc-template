@@ -1,30 +1,44 @@
 package templates
 
 import (
-	"fmt"
+	"cmp"
 	"log"
 	"net/http"
 	"os"
 
-	"gopkg.in/osteele/liquid.v1"
+	"github.com/open2b/scriggo"
+	"github.com/open2b/scriggo/native"
 )
 
-func LoadTemplate(w http.ResponseWriter, path string, bindings map[string]any) {
-	rawTemplate, err := os.ReadFile(path)
-	if err != nil {
-		log.Fatalln(err)
+func RenderTemplate(
+	w http.ResponseWriter,
+	file string,
+	globals native.Declarations,
+	vars map[string]any,
+) error {
+	contentLayout, err1 := os.ReadFile("internal/templates/layouts/default.html")
+	content, err2 := os.ReadFile(file)
+	if err := cmp.Or(err1, err2); err != nil {
+		log.Printf("RenderTemplate: ReadFile: %v", err)
+		return err
 	}
 
-	engine := liquid.NewEngine()
-	engine.RegisterFilter("asset_url", func(text string) string {
-		// local or S3
-		return text
-	})
-
-	out, err := engine.ParseAndRenderString(string(rawTemplate), bindings)
+	fsys := scriggo.Files{
+		"internal/templates/layouts/default.html": contentLayout,
+		file: content,
+	}
+	opts := &scriggo.BuildOptions{Globals: globals}
+	template, err := scriggo.BuildTemplate(fsys, file, opts)
 	if err != nil {
-		log.Fatalln(err)
+		log.Printf("RenderTemplate: BuildTemplate: %v", err)
+		return err
 	}
 
-	fmt.Fprint(w, out)
+	err = template.Run(w, vars, nil)
+	if err != nil {
+		log.Printf("RenderTemplate: Run: %v", err)
+		return err
+	}
+
+	return nil
 }
