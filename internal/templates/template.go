@@ -16,7 +16,7 @@ func RenderTemplate(
 	globals native.Declarations,
 	vars map[string]any,
 ) error {
-	contentLayout, err1 := os.ReadFile("internal/templates/layouts/default.html")
+	contentLayout, err1 := os.ReadFile("internal/templates/layouts/base.html")
 	content, err2 := os.ReadFile(file)
 	if err := cmp.Or(err1, err2); err != nil {
 		log.Printf("RenderTemplate: ReadFile: %v", err)
@@ -24,8 +24,8 @@ func RenderTemplate(
 	}
 
 	fsys := scriggo.Files{
-		"internal/templates/layouts/default.html": contentLayout,
-		file: content,
+		"internal/templates/layouts/base.html": contentLayout,
+		file:                                   content,
 	}
 	opts := &scriggo.BuildOptions{Globals: globals}
 	template, err := scriggo.BuildTemplate(fsys, file, opts)

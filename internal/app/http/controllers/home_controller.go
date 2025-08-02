@@ -23,7 +23,7 @@ func (HomeController) Index(c echo.Context) error {
 	}
 	vars := map[string]any{}
 
-	err := templates.RenderTemplate(w, "internal/templates/index.html", globals, vars)
+	err := templates.RenderTemplate(w, "internal/templates/home/index.html", globals, vars)
 	if err != nil {
 		return echo.NewHTTPError(http.StatusInternalServerError, "something unexpected happened")
 	}
