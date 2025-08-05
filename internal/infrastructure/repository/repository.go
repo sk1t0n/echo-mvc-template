@@ -1,8 +1,9 @@
 package repository
 
 type Repository interface {
-	Save(model any) error
-	FindById(id int) (any, error)
-	FindAll() ([]any, error)
-	DeleteById(id int) error
+	Create(model any) error
+	GetByID(id uint) (any, error)
+	GetAll() (any, error)
+	Update(model any) error
+	Delete(id uint) error
 }
