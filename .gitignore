@@ -1,6 +1,6 @@
 # Minified CSS, JS
-web/css/*
-web/js/*
+web/build/css/*
+web/build/js/*
 !web/**/.gitkeep
 
 # Binaries for programs and plugins

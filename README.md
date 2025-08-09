@@ -1,6 +1,6 @@
-# echo-mvc-template
+# fiber-mvc-template
 
-This is a project template for Echo MVC apps. Tech stack: [Echo](https://echo.labstack.com/), [Scriggo](https://github.com/open2b/scriggo).
+This is a project template for Fiber MVC apps. Tech stack: [Fiber](https://github.com/gofiber/fiber), [Scriggo](https://github.com/open2b/scriggo).
 
 ## Install
 
