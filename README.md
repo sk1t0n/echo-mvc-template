@@ -7,6 +7,7 @@ This is a project template for Fiber MVC apps. Tech stack: [Fiber](https://githu
 ```sh
 go mod download
 npm i -D
+cp .env.example .env
 ```
 
 ## Minify CSS and JS
